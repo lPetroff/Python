@@ -1,0 +1,191 @@
+// Created by Ş.F.Y.
+
+import random
+class Enemy:
+ loop=0
+ repeat = 0
+ loser=0
+ while(loop == 0):
+     if (repeat != 1):
+         enemy1name = input("Enter the first name of hero :")
+     if (enemy1name == ""):
+         print("you need to choose a name")
+     else:
+            if (repeat != 1):
+             enemy2name = input("Enter the second name of hero :")
+            if (enemy2name == ""):
+              print("You need to choose a name")
+              while(enemy2name == ""):
+                 enemy2name = input("Enter the second name of hero :")
+
+              if (enemy1name == enemy2name):
+                while (enemy1name == enemy2name):
+                    print("You need to choose some different name")
+                    enemy2name = input("Enter the second name of hero :")
+                enemy1_life = 100
+                enemy2_life = 100
+                print("First hero is :", enemy1name, "\n[HP]:", enemy1_life, "==", "I" * int(enemy1_life / 2))
+                print("Second hero is :", enemy2name, "\n[HP]:", enemy2_life, "==", "I" * int(enemy2_life / 2))
+              else:
+                 enemy1_life = 100
+                 enemy2_life = 100
+                 print("First hero is :", enemy1name, "\n[HP]:", enemy1_life, "==", "I" * int(enemy1_life / 2))
+                 print("Second hero is :", enemy2name, "\n[HP]:", enemy2_life, "==", "I" * int(enemy2_life / 2))
+            else:
+                if (enemy1name == enemy2name):
+                    while (enemy1name == enemy2name):
+                     print("You need to choose some different name")
+                     enemy2name = input("Enter the second name of hero :")
+                    enemy1_life = 100
+                    enemy2_life = 100
+                    print("First hero is :", enemy1name, "\n[HP]:", enemy1_life, "==", "I" * int(enemy1_life / 2))
+                    print("Second hero is :", enemy2name, "\n[HP]:", enemy2_life, "==", "I" * int(enemy2_life / 2))
+                else:
+                    enemy1_life = 100
+                    enemy2_life = 100
+                    print("First hero is :",enemy1name,"\n[HP]:",enemy1_life,"==","I"*int(enemy1_life/2))
+                    print("Second hero is :", enemy2name, "\n[HP]:", enemy2_life, "==", "I" * int(enemy2_life / 2))
+            if (loser == 0):
+                x = random.choice([enemy1name, enemy2name])
+            if (loser == 1):
+                x = enemy1name
+            if (loser == 2):
+                x = enemy2name
+            print("first attack from :", x)
+            if(x==enemy1name):
+                enemy1_line = 1
+                enemy2_line = 0
+                game_over = 0
+                while (game_over == 0):
+
+                    if (enemy1_line > enemy2_line):
+                        attack = input("Choose your attack magnitude between 1 and 50 :")
+                        while (int(attack) > 50):
+                            print("You can't choose a higher number from 50 ")
+                            attack = input("Choose Again :")
+                        attack2 = random.randrange(1, 100)
+                        if (attack2 <= 100 - int(attack)):
+                            enemy1_life = enemy1_life - int(attack)
+                            if (enemy1_life < 1):
+                                print("Attack is succesfull", enemy1name, " hp: 0","\n#####WİNNER ",enemy2name,"#####")
+                                game_over=1
+                                enemy2_line = enemy2_line + 2
+                            else:
+                             print("Attack is succesfull", enemy1name, " hp:", enemy1_life, "==", "I" * int(enemy1_life / 2))
+                             enemy2_line = enemy2_line + 2
+                        else:
+                            print("Failed..")
+                            enemy2_line = enemy2_line + 2
+                        if (enemy1_life <= 0 or enemy2_life <= 0):
+                            new_game = input("Do you want to play 1 more game ? // Press Y or N :")
+                            if (new_game == "Y"):
+                                loop = 0
+                                repeat=1
+                                if (enemy1_life <= 0):
+                                    loser = 1
+                                if (enemy2_life <= 0):
+                                    loser = 2
+                            else:
+                                loop = 1
+                        else:
+                            print("fighting continue")
+                    else:
+                        attack = input("Choose your attack magnitude between 1 and 50 :")
+                        while (int(attack) > 50):
+                            print("You can't choose a higher number from 50 ")
+                            attack = input("Choose Again :")
+                        attack2 = random.randrange(1, 100)
+                        if (attack2 <= 100 - int(attack)):
+                            enemy2_life = enemy2_life - int(attack)
+                            if (enemy2_life < 1):
+                                print("Attack is succesfull", enemy2name, " hp: 0","\n#####WİNNER ",enemy1name,"#####")
+                                game_over=1
+                                enemy1_line = enemy1_line + 2
+                            else:
+                                print("Attack is succesfull", enemy2name, " hp:", enemy2_life, "==","I" * int(enemy2_life / 2))
+                                enemy1_line = enemy1_line + 2
+                        else:
+                            print("Failed..")
+                            enemy1_line = enemy1_line + 2
+                        if (enemy1_life <= 0 or enemy2_life <= 0):
+                            new_game = input("Do you want to play 1 more game ? // Press Y or N :")
+                            if (new_game == "Y"):
+                               loop = 0
+                               repeat=1
+                               if(enemy1_life <= 0):
+                                    loser = 1
+                               if(enemy2_life <= 0):
+                                    loser = 2
+                            else:
+                                loop = 1
+                        else:
+                          print("Fighting continue")
+
+            else:
+              enemy1_line = 1
+              enemy2_line = 0
+              game_over = 0
+              while (game_over == 0):
+               if(enemy1_line>enemy2_line):
+                 attack = input("Choose your attack magnitude between 1 and 50 :")
+                 while(int(attack)>50):
+                     print("You can't choose a higher number from 50 ")
+                     attack = input("Choose Again :")
+
+                 attack2 = random.randrange(1, 100)
+                 if (attack2 <= 100 - int(attack)):
+                    enemy1_life=enemy1_life - int(attack)
+                    if(enemy1_life<1):
+                     print("Attack is succesfull",enemy1name,"  hp: 0","\n#####WİNNER ",enemy2name,"#####")
+                     game_over=1
+                     enemy2_line=enemy2_line+2
+                    else:
+                     print("Attack is succesfull",enemy1name," hp:", enemy1_life,"==","I"*int(enemy1_life/2))
+                     enemy2_line=enemy2_line+2
+                 else:
+                    print("Failed..")
+                    enemy2_line=enemy2_line+2
+                 if (enemy1_life <= 0 or enemy2_life <= 0):
+                   new_game = input("Do you want to play 1 more game ? // Press Y or N :")
+                   if (new_game == "Y"):
+                       loop = 0
+                       repeat=1
+                       if(enemy1_life <= 0):
+                         loser = 1
+                       if(enemy2_life <= 0):
+                         loser = 2
+                   else:
+                       loop = 1
+                 else:
+                   print("fighting continue")
+               else:
+                   attack = input("Choose your attack magnitude between 1 and 50 :")
+                   while (int(attack) > 50):
+                       print("You can't choose a higher number from 50")
+                       attack = input("Choose Again :")
+                   attack2 = random.randrange(1, 100)
+                   if (attack2 <= 100 - int(attack)):
+                       enemy2_life = enemy2_life - int(attack)
+                       if (enemy2_life < 1):
+                           print("Attack is succesfull", enemy2name, "hp: 0","\n#####WİNNER ",enemy1name,"#####")
+                           game_over=1
+                           enemy1_line=enemy1_line+2
+                       else:
+                           print("Attack is succesfull", enemy2name, " hp:", enemy2_life, "==","I" * int(enemy2_life / 2))
+                           enemy1_line=enemy1_line+2
+                   else:
+                       print("Failed..")
+                       enemy1_line=enemy1_line+2
+                   if (enemy1_life <= 0 or enemy2_life <= 0):
+                       new_game = input("Do you want to play 1 more game ? // Press Y or N :")
+                       if (new_game == "Y"):
+                           loop = 0
+                           repeat=1
+                           if(enemy1_life <= 0):
+                             loser = 1
+                           if(enemy2_life <= 0):
+                             loser = 2
+                       else:
+                           loop = 1
+                   else:
+                       print("fighting continue")

@@ -1,0 +1,114 @@
+from PIL import Image
+import binascii
+
+im = Image.open('x.jpg')
+pixelMap = im.load()
+img = Image.new( im.mode, im.size)
+x,y=im.size
+kapasite=x*y*8
+sayac = 0
+SifreliMetinArray = []
+sayac2=0
+sayac3 = 0
+
+#print("toplam kapasite: "+ str(kapasite) + "bit")
+"""
+r123='ff'
+res = ''.join(format(ord(i), 'b') for i in r123) 
+print(len(str(res)))
+for k in res:
+    SifreliMetinArray.append(k)
+print(SifreliMetinArray)
+
+listToStr = ' '.join(map(str, SifreliMetinArray)) 
+print(listToStr) 
+
+
+"""
+
+
+def string2bits(s=''):
+    return [bin(ord(x))[2:].zfill(8) for x in s]
+
+def bits2string(b=None):
+    return ''.join([chr(int(x, 2)) for x in b])
+
+
+SifreliMetin= input("Girmek istediginiz sifre: ")
+b = string2bits(SifreliMetin)
+s2 = bits2string(b)
+
+print ('Şifrelenmek istenen metin:')
+print (SifreliMetin)
+
+print ('\nList of Bits:')
+for x in b:
+    for m in x:
+        SifreliMetinArray.append(m)
+
+print('######')
+print(len(SifreliMetinArray))
+
+listToStr = ' '.join(map(str, SifreliMetinArray)) 
+print(listToStr) 
+
+print('Binary to Text : ' + s2)
+
+pixelsNew = img.load()
+print(pixelMap)
+print(pixelsNew)
+print(im.mode)
+#for i in range(img.size[0]):
+for j in range(img.size[0]):
+    for i in range(img.size[1]):
+        sayac = sayac + 1
+        if (len(str(SifreliMetinArray)) >= sayac):
+             binaryRdegerArray=[]
+             (r,g,b) = pixelMap[j,i] # pixelin rgb değerini r,g,b değişkenlerine at
+             #a = bin(r).replace("0b", "") # red değerini binary çevir
+             
+             a = string2bits(str(r))
+             for y in a:    
+                 for n in y:
+                     binaryRdegerArray.append(n)# binary çevirdiği değeri arraye atıyor
+                 #binaryRdegerArray.append(y)           # binary çevirdiği değeri arraye atıyor
+             listToStr3 = ' '.join(map(str, binaryRdegerArray))
+             print(listToStr3)
+             s4 = bits2string(a)
+             print('€€€€' + s4) # alınan r değeri binary hali
+             print(sayac3)
+             sayac3 = sayac3 + 1
+             print("cpoint",sayac3)
+             if sayac3 == 40:
+                 sayac3=sayac3-1       
+             binaryRdegerArray[-1] = SifreliMetinArray[sayac3]
+             listToStr2 = ' '.join(map(str, binaryRdegerArray)) 
+             print(listToStr2)
+             s5 = bits2string(listToStr2)
+             print(s5, "test")
+             
+             # s3 = bits2string(a) # r değerinin son biti değiştirilmiş hali
+             # print('####' + s3)
+
+             
+             
+             #pixelMap[j,i] = (255,0,0)   # pixeldeki değer değiştirmeye yarıyor 
+        pixelsNew[j,i] = pixelMap[j,i] # pixel değerlerini yeni resimdeki pixellerle güncelliyor
+        
+im.close()
+img.show()       
+img.save("x12.jpg") 
+img.close()
+
+# 141,141,141
+
+# r
+
+# r = 141 --> 1 0 0 0 1 1 0 [1]
+#     113 --> 0 1 1 1 0 0 0 [1]
+# r = 141 --> 1 0 0 0 1 1 0 [1]
+#     113 --> 0 1 1 1 0 0 0 [1]
+# r = 141 --> 1 0 0 0 1 1 0 [1]
+#     113 --> 0 1 1 1 0 0 0 [1]
+# r = 141 --> 1 0 0 0 1 1 0 [1]
+#     113 --> 0 1 1 1 0 0 0 [1]

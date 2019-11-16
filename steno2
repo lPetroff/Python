@@ -1,0 +1,88 @@
+from PIL import Image
+
+im = Image.open('x.jpg')
+pixelMap = im.load()
+img = Image.new( im.mode, im.size)
+x,y=im.size
+kapasite=x*y*8
+sayac = 0
+SifreliMetinArray = []
+SifreliMetinArray2 = []
+sayac2=0
+sayac3 = -1
+
+print("toplam kapasite: "+ str(kapasite) + "bit")
+
+
+def string2bits(s=''):
+    return [bin(ord(x))[2:].zfill(8) for x in s]
+
+def bits2string(b=None):
+    return ''.join([chr(int(x, 2)) for x in b])
+
+
+SifreliMetin= input("Girmek istediginiz sifre: ")
+b = string2bits(SifreliMetin)
+s2 = bits2string(b)
+
+print ('Şifrelenmek istenen metin:')
+print (SifreliMetin)
+print ('\nList of Bits:')
+for x in b:
+    for m in x:
+        SifreliMetinArray.append(m)
+print('######')
+print(len(SifreliMetinArray))
+print(b)
+SifreliMetinArray2 = SifreliMetinArray
+print(SifreliMetinArray2)
+listToStr = ' '.join(map(str, SifreliMetinArray)) 
+print(listToStr) 
+print('Binary to Text : ' + s2)
+
+pixelsNew = img.load()
+print(pixelMap)
+print(pixelsNew)
+print(im.mode)
+#for i in range(img.size[0]):
+for j in range(img.size[0]):
+    for i in range(img.size[1]):
+        sayac = sayac + 1
+        if (len(SifreliMetinArray) >= sayac):
+             binaryRdegerArray=[]
+             (r,g,b) = pixelMap[j,i] # pixelin rgb değerini r,g,b değişkenlerine at
+             #a = bin(r).replace("0b", "") # red değerini binary çevir
+         
+             a = string2bits(str(r))
+             for y in a:    
+                 for n in y:
+                     binaryRdegerArray.append(n)# binary çevirdiği değeri arraye atıyor 
+             listToStr3 = ' '.join(map(str, binaryRdegerArray))
+             print(listToStr3)
+             s4 = bits2string(a)
+             print('€€€€' + s4) # alınan r değeri binary hali
+
+             sayac3 = sayac3 + 1
+             
+             binaryRdegerArray[-1] = SifreliMetinArray2[sayac3]
+             
+             lenOfArr8 = len(binaryRdegerArray)//8 #5
+             
+             array3 = [0 for y in range(lenOfArr8)]
+             
+             k = 0
+             for i in range(lenOfArr8):
+                 for j in range(8):
+                     array3[i] = str(array3[i]) + binaryRdegerArray[k]
+                     k=k+1
+
+             s5 = bits2string(array3)
+             print(s5, "yeni pixel")         
+             pixelMap[j,i] = (int(s5),0,0)   # pixeldeki değer değiştirmeye yarıyor 
+        pixelsNew[j,i] = pixelMap[j,i] # pixel değerlerini yeni resimdeki pixellerle güncelliyor
+        
+im.close()
+img.show()       
+img.save("x12.jpg") 
+img.close()
+

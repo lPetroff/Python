@@ -1,0 +1,54 @@
+import os
+#!/usr/bin/env python
+#-*-coding:utf-8-*-
+files = []
+
+d = {} # dictionary
+word_ordered = []
+
+#
+for i in os.listdir():
+    if i.endswith('.txt'):
+        files.append(i)
+
+
+def wordcounter(filename):
+    try:
+        fp= open(filename,encoding="utf-8-sig")
+        text= fp.read()
+    except:
+        print("dosya açılmadı")
+        return
+    fp.close()
+    
+    for char in '-.,\n':
+        text = text.replace(char,' ')
+    text = text.lower()
+    
+    word_list  = text.split()
+    
+    for word in word_list:
+        if word not in d:
+            d[word] = 0
+        d[word] += 1
+    
+    word_ordered.clear()
+    
+    for key, value in d.items():
+        word_ordered.append((value,key))
+
+    word_ordered.sort(reverse=True)
+
+
+for entry in files:
+    wordcounter(entry)
+
+for i in range(20):
+    print(word_ordered[i])
+
+
+
+
+
+
+
